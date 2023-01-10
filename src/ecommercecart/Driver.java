@@ -25,6 +25,7 @@ public class Driver extends javax.swing.JFrame {
     private String username_seller;
     private String category_add;
     private Product selected_product;
+    private UserSession session = new UserSession();
     /**
      * Creates new form NewJFrame
      */
@@ -1323,11 +1324,6 @@ public class Driver extends javax.swing.JFrame {
                 .addGap(28, 28, 28))
         );
 
-        jList_fashion_seller.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane7.setViewportView(jList_fashion_seller);
 
         jLabel22.setText("Your Product");
@@ -2592,6 +2588,7 @@ public class Driver extends javax.swing.JFrame {
             prodList = new DefaultListModel();
             arrListProd = new ArrayList<>();
 
+//            System.out.println(rs.getString("product_name"));
             while (rs.next()) {
                 prodList.addElement(rs.getString("product_name"));
                 arrListProd.add(new PCGamingAccessories(rs.getString("seller_name"),
@@ -2610,6 +2607,7 @@ public class Driver extends javax.swing.JFrame {
                         price_pcgamingaccessories_seller.setText(String.format("Rp %s", price.toString()));
                         desc_pcgamingaccessories_seller.setLineWrap(true);
                         desc_pcgamingaccessories_seller.append(pcga.getItemShortDesc());
+                        System.out.println("pcga");
                     }
                 }
             });            
@@ -2622,18 +2620,23 @@ public class Driver extends javax.swing.JFrame {
         switch (category) {
             case "Fashion":
                 try {
-                    Fashion temp = new Fashion(p.getSellerName(), p.getItemName(), 
-                            p.getPrice(), p.getItemShortDesc(), p.getType());
-                    temp.insert_product();
-                    product_name_addpage.setText("");
-                    seller_name_addpage.setText("");
-                    price_addpage.setText("");
-                    type_addpage.setText("");
-                    desc_addpage.setText("");
-                    addproduct_page.setVisible(false);
-                    fashion_seller_page.setVisible(true);
-                    fashion_seller_page.setSize(700,600);
-                    fashion_page_seller_handling();
+                    if (product_name_addpage.getText().isEmpty() || seller_name_addpage.getText().isEmpty() || price_addpage.getText().isEmpty() || type_addpage.getText().isEmpty() || desc_addpage.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,  "Please fill empty textfield!");
+                    } else {
+                        JOptionPane.showMessageDialog(null,  "Product is added!");
+                        Fashion temp = new Fashion(p.getSellerName(), p.getItemName(), 
+                                p.getPrice(), p.getItemShortDesc(), p.getType());
+                        temp.insert_product();
+                        product_name_addpage.setText("");
+                        seller_name_addpage.setText(session.getCurrentUser().getUsername());
+                        price_addpage.setText("");
+                        type_addpage.setText("");
+                        desc_addpage.setText("");
+                        addproduct_page.setVisible(false);
+                        fashion_seller_page.setVisible(true);
+                        fashion_seller_page.setSize(700,600);
+                        fashion_page_seller_handling();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -2641,19 +2644,24 @@ public class Driver extends javax.swing.JFrame {
             
             case "Electronic":
                 try {
-                    Electronic temp = new Electronic(p.getSellerName(), 
+                    if (product_name_addpage.getText().isEmpty() || seller_name_addpage.getText().isEmpty() || price_addpage.getText().isEmpty() || type_addpage.getText().isEmpty() || desc_addpage.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,  "Please fill empty textfield!");
+                    } else {
+                        JOptionPane.showMessageDialog(null,  "Product is added!");
+                        Electronic temp = new Electronic(p.getSellerName(), 
                             p.getItemName(), p.getPrice(), p.getItemShortDesc(), 
                             p.getType());
-                    temp.insert_product();
-                    product_name_addpage.setText("");
-                    seller_name_addpage.setText("");
-                    price_addpage.setText("");
-                    type_addpage.setText("");
-                    desc_addpage.setText("");
-                    addproduct_page.setVisible(false);
-                    electronic_seller_page.setVisible(true);
-                    electronic_seller_page.setSize(700,600);
-                    electronic_page_seller_handling();
+                        temp.insert_product();
+                        product_name_addpage.setText("");
+                        seller_name_addpage.setText(session.getCurrentUser().getUsername());
+                        price_addpage.setText("");
+                        type_addpage.setText("");
+                        desc_addpage.setText("");
+                        addproduct_page.setVisible(false);
+                        electronic_seller_page.setVisible(true);
+                        electronic_seller_page.setSize(700,600);
+                        electronic_page_seller_handling();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -2661,19 +2669,24 @@ public class Driver extends javax.swing.JFrame {
                 
             case "Kitchen Set":
                 try {
-                    KitchenSet temp = new KitchenSet(p.getSellerName(), 
+                    if (product_name_addpage.getText().isEmpty() || seller_name_addpage.getText().isEmpty() || price_addpage.getText().isEmpty() || type_addpage.getText().isEmpty() || desc_addpage.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,  "Please fill empty textfield!");
+                    } else {
+                        JOptionPane.showMessageDialog(null,  "Product is added!");
+                        KitchenSet temp = new KitchenSet(p.getSellerName(), 
                             p.getItemName(), p.getPrice(), p.getItemShortDesc(), 
                             p.getType());
-                    temp.insert_product();
-                    product_name_addpage.setText("");
-                    seller_name_addpage.setText("");
-                    price_addpage.setText("");
-                    type_addpage.setText("");
-                    desc_addpage.setText("");
-                    addproduct_page.setVisible(false);
-                    kitchenset_seller_page.setVisible(true);
-                    kitchenset_seller_page.setSize(700,600);
-                    kitchenset_page_seller_handling();
+                        temp.insert_product();
+                        product_name_addpage.setText("");
+                        seller_name_addpage.setText(session.getCurrentUser().getUsername());
+                        price_addpage.setText("");
+                        type_addpage.setText("");
+                        desc_addpage.setText("");
+                        addproduct_page.setVisible(false);
+                        kitchenset_seller_page.setVisible(true);
+                        kitchenset_seller_page.setSize(700,600);
+                        kitchenset_page_seller_handling();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -2681,19 +2694,24 @@ public class Driver extends javax.swing.JFrame {
                 
             case "Game Voucher":
                 try {
-                    GameVoucher temp = new GameVoucher(p.getSellerName(), 
+                    if (product_name_addpage.getText().isEmpty() || seller_name_addpage.getText().isEmpty() || price_addpage.getText().isEmpty() || type_addpage.getText().isEmpty() || desc_addpage.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,  "Please fill empty textfield!");
+                    } else {
+                        JOptionPane.showMessageDialog(null,  "Product is added!");
+                        GameVoucher temp = new GameVoucher(p.getSellerName(), 
                             p.getItemName(), p.getPrice(), p.getItemShortDesc(), 
                             p.getType());
-                    temp.insert_product();
-                    product_name_addpage.setText("");
-                    seller_name_addpage.setText("");
-                    price_addpage.setText("");
-                    type_addpage.setText("");
-                    desc_addpage.setText("");
-                    addproduct_page.setVisible(false);
-                    gamevoucher_seller_page.setVisible(true);
+                        temp.insert_product();
+                        product_name_addpage.setText("");
+                        seller_name_addpage.setText(session.getCurrentUser().getUsername());
+                        price_addpage.setText("");
+                        type_addpage.setText("");
+                        desc_addpage.setText("");
+                        addproduct_page.setVisible(false);
+                        gamevoucher_seller_page.setVisible(true);
                     gamevoucher_seller_page.setSize(700,600);
                     gamevoucher_page_seller_handling();
+                    }                   
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -2701,19 +2719,24 @@ public class Driver extends javax.swing.JFrame {
             
             case "PC Gaming Accessories":
                 try {
-                    PCGamingAccessories temp = new PCGamingAccessories(p.getSellerName(), 
+                    if (product_name_addpage.getText().isEmpty() || seller_name_addpage.getText().isEmpty() || price_addpage.getText().isEmpty() || type_addpage.getText().isEmpty() || desc_addpage.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,  "Please fill empty textfield!");
+                    } else {
+                        JOptionPane.showMessageDialog(null,  "Product is added!");
+                        PCGamingAccessories temp = new PCGamingAccessories(p.getSellerName(), 
                             p.getItemName(), p.getPrice(), p.getItemShortDesc(), 
                             p.getType());
-                    temp.insert_product();
-                    product_name_addpage.setText("");
-                    seller_name_addpage.setText("");
-                    price_addpage.setText("");
-                    type_addpage.setText("");
-                    desc_addpage.setText("");
-                    addproduct_page.setVisible(false);
-                    pcgamingaccessories_seller_page.setVisible(true);
-                    pcgamingaccessories_seller_page.setSize(700,600);
-                    pcgamingaccessories_page_seller_handling();
+                        temp.insert_product();
+                        product_name_addpage.setText("");
+                        seller_name_addpage.setText(session.getCurrentUser().getUsername());
+                        price_addpage.setText("");
+                        type_addpage.setText("");
+                        desc_addpage.setText("");
+                        addproduct_page.setVisible(false);
+                        pcgamingaccessories_seller_page.setVisible(true);
+                        pcgamingaccessories_seller_page.setSize(700,600);
+                        pcgamingaccessories_page_seller_handling();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -2911,6 +2934,9 @@ public class Driver extends javax.swing.JFrame {
     private void addproduct_fashion_seller_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addproduct_fashion_seller_buttonActionPerformed
         category_add = "Fashion";
         fashion_seller_page.setVisible(false);
+        seller_name_addpage.setText(session.getCurrentUser().getUsername());
+        addproduct_page.setLocation(730, 330);
+        seller_name_addpage.setEnabled(false);
         addproduct_page.setVisible(true);
         addproduct_page.setSize(500,500);
     }//GEN-LAST:event_addproduct_fashion_seller_buttonActionPerformed
@@ -2942,6 +2968,9 @@ public class Driver extends javax.swing.JFrame {
     private void addproduct_electronic_seller_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addproduct_electronic_seller_buttonActionPerformed
         category_add = "Electronic";
         electronic_seller_page.setVisible(false);
+        seller_name_addpage.setText(session.getCurrentUser().getUsername());
+        addproduct_page.setLocation(730, 330);
+        seller_name_addpage.setEnabled(false);
         addproduct_page.setVisible(true);
         addproduct_page.setSize(500,500);
     }//GEN-LAST:event_addproduct_electronic_seller_buttonActionPerformed
@@ -2949,6 +2978,9 @@ public class Driver extends javax.swing.JFrame {
     private void addproduct_kitchenset_seller_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addproduct_kitchenset_seller_buttonActionPerformed
         category_add = "Kitchen Set";
         kitchenset_seller_page.setVisible(false);
+        seller_name_addpage.setText(session.getCurrentUser().getUsername());
+        addproduct_page.setLocation(730, 330);
+        seller_name_addpage.setEnabled(false);
         addproduct_page.setVisible(true);
         addproduct_page.setSize(500,500);
     }//GEN-LAST:event_addproduct_kitchenset_seller_buttonActionPerformed
@@ -3259,7 +3291,9 @@ public class Driver extends javax.swing.JFrame {
         // TODO add your handling code here:
         category_add = "Game Voucher";
         gamevoucher_seller_page.setVisible(false);
-        addproduct_page.setLocationRelativeTo(null);
+        seller_name_addpage.setText(session.getCurrentUser().getUsername());
+        seller_name_addpage.setEnabled(false);
+        addproduct_page.setLocation(730, 330);
         addproduct_page.setVisible(true);
         addproduct_page.setSize(500,500);
     }//GEN-LAST:event_addproduct_gamevoucher_seller_buttonActionPerformed
@@ -3286,8 +3320,10 @@ public class Driver extends javax.swing.JFrame {
     private void addproduct_pcgamingaccessories_seller_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addproduct_pcgamingaccessories_seller_buttonActionPerformed
         // TODO add your handling code here:
         category_add = "PC Gaming Accessories";
+        seller_name_addpage.setText(session.getCurrentUser().getUsername());
+        seller_name_addpage.setEnabled(false);
         pcgamingaccessories_seller_page.setVisible(false);
-        addproduct_page.setLocationRelativeTo(null);
+        addproduct_page.setLocation(730, 330);
         addproduct_page.setVisible(true);
         addproduct_page.setSize(500,500);
     }//GEN-LAST:event_addproduct_pcgamingaccessories_seller_buttonActionPerformed
@@ -3343,7 +3379,7 @@ public class Driver extends javax.swing.JFrame {
                 System.out.println("bener mint");
                 Seller seller = new Seller(rs.getString("name"), rs.getString("username"), email_seller, password_seller, rs.getString("address"));
                 username_seller = rs.getString("username");
-                UserSession.login(seller);
+                session.login(seller);
                 JOptionPane.showMessageDialog(null, "Login Successful");
                 seller_login.setVisible(false);
                 category_page_seller.setLocation(730, 330);
@@ -3374,7 +3410,7 @@ public class Driver extends javax.swing.JFrame {
             } else {
                 System.out.println("bener mint");
                 Customer customer = new Customer(rs.getString("name"), rs.getString("username"), email_customer, password_customer, rs.getString("address"));
-                UserSession.login(customer);
+                session.login(customer);
                 JOptionPane.showMessageDialog(null, "Login Successful");
                 customer_login.setVisible(false);
                 category_page_customer.setLocation(730, 330);
@@ -3413,7 +3449,7 @@ public class Driver extends javax.swing.JFrame {
 
     private void logout_customer_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout_customer_buttonActionPerformed
         // TODO add your handling code here:
-        UserSession.logout();
+        session.logout();
         JOptionPane.showMessageDialog(null, "Logout Successful");
         category_page_customer.setVisible(false);
         customer_login.setLocation(740, 340);
@@ -3459,7 +3495,7 @@ public class Driver extends javax.swing.JFrame {
 
     private void logout_button_sellerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout_button_sellerActionPerformed
         // TODO add your handling code here:
-        UserSession.logout();
+        session.logout();
         JOptionPane.showMessageDialog(null, "Logout Successful");
         category_page_seller.setVisible(false);
         seller_login.setLocation(740, 340);

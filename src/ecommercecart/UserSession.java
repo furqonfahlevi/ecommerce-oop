@@ -10,17 +10,17 @@ package ecommercecart;
  * @author Levi
  */
 class UserSession {
-    private static User currentUser;
+    private User currentUser;
 
-    public static void login(User user) {
+    public void login(User user) {
         currentUser = user;
     }
 
-    public static void logout() {
+    public void logout() {
         currentUser = null;
     }
 
-    public static User getCurrentUser() {
+    public User getCurrentUser() {
         return currentUser;
     }
 }

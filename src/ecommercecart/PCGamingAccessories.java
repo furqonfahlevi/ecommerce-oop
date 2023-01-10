@@ -30,7 +30,7 @@ public class PCGamingAccessories extends Product {
         try {
             Database db = new Database();
             String sql = String.format("INSERT INTO pcgamingaccessories VALUES "
-                    + "(NULL, '%s', '%s', %d, '%s', '%s')", this.getSellerName(),
+                    + "('%s', '%s', %d, '%s', '%s')", this.getSellerName(),
                     this.getItemName(), this.getPrice(), this.getItemShortDesc(),
                     this.getType());
             db.query(sql);
