@@ -26,7 +26,7 @@ public class Seller extends User {
     
     public void insert_seller() throws SQLException {
         Database db = new Database();
-        String sql = String.format("INSERT INTO seller values ('%s', '%s', '%s', '%s', '%s')", 
+        String sql = String.format("INSERT INTO seller (name, username, email, password, address) values ('%s', '%s', '%s', '%s', '%s')", 
                             this.getName(), this.getUsername(), this.getEmail(), this.getPassword(),
                             this.getAddress());
         db.query(sql);

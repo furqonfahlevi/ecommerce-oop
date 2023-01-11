@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2023 at 06:42 PM
+-- Generation Time: Jan 11, 2023 at 02:47 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -34,14 +34,6 @@ CREATE TABLE `cart` (
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`cart_id`, `user_id`, `product_name`, `price`) VALUES
-(1, 2, 'mouse', 15000),
-(2, 2, 'keyboard', 490000);
-
 -- --------------------------------------------------------
 
 --
@@ -62,22 +54,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`user_id`, `name`, `username`, `email`, `password`, `address`) VALUES
-(1, 'Farhan Akbar', 'farhanakbar', 'farhan@gmail.com', '123456', 'Jalan Jalan'),
-(2, 'a', 'a', 'a', 'a', 'a'),
-(3, 'b', 'b', 'b', 'b', 'b'),
-(4, 'b', 'b', 'b', 'b', 'b'),
-(5, 'c', 'c', 'c', 'c', 'c'),
-(6, 'awdkjn', 'akwfjn', 'adwkjn', 'afkjn', 'awdfa'),
-(7, '', '', '', '', ''),
-(8, 'Muhammad Farhan Akbar', 'farhanakbar8', 'farhanakbarr008@gmail.com', 'test123', 'Bandung'),
-(9, 'ajdbwwajbwa', 'awkjdawkjdawbh', 'ajkwdawjdwab', 'awkjdawjkdawbkj', 'awdjkdawkjhdawbjkh'),
-(10, 'Muhammad Farhan Akbar', 'farhanakbarrr', 'farhanakbar@gmail.com', '123456', 'Jambi'),
-(11, 'asd', 'asd', 'asdasdasd', 'asd', 'asd'),
-(12, 'levi', 'levi', 'levi@mail.com', 'levi', 'levi'),
-(13, 'farhan', 'farhan', 'farhan@mail.com', '123', 'pbb'),
-(14, 'levi', 'levi', 'levi@gmail.com', '123', 'pbb'),
-(15, 'a', 'a', 'a@gmail.com', 'a', 'a'),
-(16, 'levi', 'levi', 'hmm@mail.com', 'c3c0a114bf9769f107003aca3157da439936a06b03e2d6f0e05965e742453bf2', 'pbb');
+(19, 'testpass', 'testpass', 'testpass@mail.com', '$2a$10$y8ECUmHD7tfmX.JON82m/eOpLCWuj3L9FQpI3CX.BEir.7bxDMdBe', 'pbb');
 
 -- --------------------------------------------------------
 
@@ -100,7 +77,9 @@ CREATE TABLE `electronic` (
 INSERT INTO `electronic` (`seller_name`, `product_name`, `price`, `description`, `type`) VALUES
 ('FixPrint Indonesia', 'Printer Canon G2010', 1755000, 'Perbedaan dan Keuntungannya apa??\r\n\r\nORIGINAL INK Menggunakan Tinta Original Canon, Garansi Resmi Canon 2th + 1th\r\n1. 100% Printer New Original Canon\r\n2. 100% Tinta Original Canon\r\n3. Hasil Cetak Tajam\r\n4. Biaya Cetak Lebih mahal karena menggunakan tinta Original dengan estimasi harga tinta refill 400rb++\r\n\r\nCOMPATIBLE INK Menggunakan Tinta Compatible Premium, Garansi Toko 30 hari\r\n1. 100% Printer New Original Canon\r\n2. Menggunakan Tinta Premium Ink (compatible ink)\r\n3. Hasil Cetak Tajam 99% Like Original (Dijamin tinta aman utk head printer)\r\n4. Biaya Cetak jauh lebih murah dengan estimasi harga tinta refill 100rb an untuk 4 botol tinta CMYK\r\n\r\nJika ada yang murah & aman kenapa pilih mahal :-D', 'Printer'),
 ('FixPrint Indonesia', 'Sony WF 1000XM4 Noise Cancelling Bluetooth Earbud', 3499000, '#STTOMSCO #pastiORIGINAL #pastiLEBIHMURAH #pastiGANTIBARU\r\nGaransi GANTI UNIT BARU jika ada temuan FACTORY DEFECT selama 7 hari dari barang diterima.', 'Earphone'),
-('Ideal Brand', 'Ideal Smartphone XS10', 1000000, 'Brand new phone from Ideal Brand: Smartphone XS10', 'Phone');
+('Ideal Brand', 'Ideal Smartphone XS10', 1000000, 'Brand new phone from Ideal Brand: Smartphone XS10', 'Phone'),
+('a', 'hp', 90000, 'hp', 'gaming'),
+('test', 'monitor', 2500000, 'aoc', '24inch');
 
 -- --------------------------------------------------------
 
@@ -126,16 +105,9 @@ INSERT INTO `fashion` (`seller_name`, `product_name`, `price`, `description`, `t
 ('Uniqlo', 'Kaos Polos Putih', 100000, 'Ini deskripsi', 'Kaos'),
 ('Batik55', 'Kemeja Batik Lengan Pendek', 150000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In finibus ex velit, a sodales elit accumsan in. Maecenas eu nulla ante. Fusce sed risus ut magna faucibus tincidunt in et dolor. Mauris quis quam dolor. Praesent est justo, tristique id turpis ut, sodales imperdiet velit. Curabitur quis ultrices neque. Sed ultrices sem quis risus imperdiet congue.', 'Kemeja'),
 ('Ideal Brand', 'Celana Pendek 5 Kantong', 50000, 'Celana Pendek multifungsi yang memiliki 5 kantong', 'Celana'),
-('a', 'a', 1, 'a', 'a'),
-('b', 'b', 12, 'ab', 'ab'),
-('hansoloStore', 'a', 1, 'a', 'a'),
 ('Batik55', 'Celana Jeans motif Batik', 700000, 'Very good celana jeans with batik motive', 'Celana'),
-('t', 't', 20000, 't', 't'),
-('a', 'test', 1000, 'a', 'a'),
-('a', 'product', 50000, 'desc', 'type'),
-('a', 'gv', 100000, 'gv', 'gv'),
-('a', 'asd', 99933, 'asdsadsad', 'asddd'),
-('a', 'zxczczzcxc', 1000, 'zxczxc', 'zxczxc');
+('a', 'celana', 150000, 'black n white', 'cargo'),
+('test', 'baju', 100000, 'baju', 'baju');
 
 -- --------------------------------------------------------
 
@@ -156,8 +128,7 @@ CREATE TABLE `gamevoucher` (
 --
 
 INSERT INTO `gamevoucher` (`seller_name`, `product_name`, `price`, `description`, `type`) VALUES
-('z', 'z', 15000, 'z', 'z'),
-('a', 'asd', 99123, 'asd', 'asdad');
+('test', 'steam', 70000, 'idr', 'steam');
 
 -- --------------------------------------------------------
 
@@ -203,8 +174,8 @@ CREATE TABLE `pcgamingaccessories` (
 --
 
 INSERT INTO `pcgamingaccessories` (`seller_name`, `product_name`, `price`, `description`, `type`) VALUES
-('a', 'gv', 20000, 'gvvvvvvv', 'gv'),
-('a', 'gv', 1000, 'gv', 'gv');
+('a', 'mouse', 900000, 'light speed', 'hyoerx'),
+('test', 'keyboard', 1500000, 'red', 'mecha');
 
 -- --------------------------------------------------------
 
@@ -213,6 +184,7 @@ INSERT INTO `pcgamingaccessories` (`seller_name`, `product_name`, `price`, `desc
 --
 
 CREATE TABLE `seller` (
+  `user_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -224,19 +196,19 @@ CREATE TABLE `seller` (
 -- Dumping data for table `seller`
 --
 
-INSERT INTO `seller` (`name`, `username`, `email`, `password`, `address`) VALUES
-('b', 'b', 'b', 'b', 'b'),
-('', '', '', '', ''),
-('Farhan', 'farhan_seller', 'farhan@gmail.com', '123456', 'Jalan Sersan Muslim'),
-('a', 'a', 'a', 'a', 'a'),
-('Batik55', 'batik55', 'test@gmail.com', '123456', 'Jalan jalan'),
-('Ideal Brand', 'ideal', 'ideal@gmail.com', '123456', 'Jalan Jalan'),
-('Masak123', 'masak123', 'masak@mail.com', '123456', 'Jalan'),
-('FixPrint Indonesia', 'fixprint', 'fixprint@mail.com', '123456', 'Jalan jalan'),
-('Farhan', 'hansoloStore', 'hansolo@gmail.com', '123456', 'Bandung'),
-('My Store', 'store123', 'name@gmail.com', '123456', 'Bandung'),
-('admin', 'admin', 'admin@mail.com', 'adm', 'b'),
-('admin', 'adm', 'admin@yahoo.co', 'b3278468ef67c3cb916bf9d17e3dbe0e450b86fec15472a0f9e95e21f314c5f6', 'add');
+INSERT INTO `seller` (`user_id`, `name`, `username`, `email`, `password`, `address`) VALUES
+(1, 'b', 'b', 'b', 'b', 'b'),
+(2, 'Farhan', 'farhan_seller', 'farhan@gmail.com', '123456', 'Jalan Sersan Muslim'),
+(3, 'a', 'a', 'a', 'a', 'a'),
+(4, 'Batik55', 'batik55', 'test@gmail.com', '123456', 'Jalan jalan'),
+(5, 'Ideal Brand', 'ideal', 'ideal@gmail.com', '123456', 'Jalan Jalan'),
+(6, 'Masak123', 'masak123', 'masak@mail.com', '123456', 'Jalan'),
+(7, 'FixPrint Indonesia', 'fixprint', 'fixprint@mail.com', '123456', 'Jalan jalan'),
+(8, 'Farhan', 'hansoloStore', 'hansolo@gmail.com', '123456', 'Bandung'),
+(9, 'My Store', 'store123', 'name@gmail.com', '123456', 'Bandung'),
+(10, 'admin', 'admin', 'admin@mail.com', 'adm', 'b'),
+(11, 'test', 'test', 'test@mail.com', '$2a$10$XdYhl9MshzOuQ6GS1tBD8.uiPUJEimAh5jzc8wp9UCFnX4MAz8196', 'pbb'),
+(12, 'seller', 'seller', 'seller@mail.com', '$2a$10$JQ4EhVgpzZ2F3pBklGJZI.AbRi6ws8dtswnVR87Eg0xgK92eB6wX2', 'telkom');
 
 --
 -- Indexes for dumped tables
@@ -256,6 +228,12 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `seller`
+--
+ALTER TABLE `seller`
+  ADD PRIMARY KEY (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -269,7 +247,13 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `seller`
+--
+ALTER TABLE `seller`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
