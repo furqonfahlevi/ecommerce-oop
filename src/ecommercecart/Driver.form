@@ -490,6 +490,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="logout_customer_button">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3b" green="3b" red="b2" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Logout"/>
           </Properties>
           <Events>
@@ -601,6 +607,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="logout_button_seller">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3b" green="3b" red="b2" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Logout"/>
           </Properties>
           <Events>
@@ -2369,7 +2381,6 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="add_button" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="product_name_addpage" max="32767" attributes="0"/>
                           <Component id="seller_name_addpage" max="32767" attributes="0"/>
@@ -2377,6 +2388,10 @@
                           <Component id="type_addpage" pref="150" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane13" min="-2" pref="180" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="add_button" min="-2" pref="72" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="62" max="32767" attributes="0"/>
               </Group>

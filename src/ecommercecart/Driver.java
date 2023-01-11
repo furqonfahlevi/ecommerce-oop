@@ -16,6 +16,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class Driver extends javax.swing.JFrame {
     private DefaultListModel prodList;
@@ -667,6 +668,8 @@ public class Driver extends javax.swing.JFrame {
             }
         });
 
+        logout_customer_button.setBackground(new java.awt.Color(178, 59, 59));
+        logout_customer_button.setForeground(new java.awt.Color(255, 255, 255));
         logout_customer_button.setText("Logout");
         logout_customer_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -758,6 +761,8 @@ public class Driver extends javax.swing.JFrame {
             }
         });
 
+        logout_button_seller.setBackground(new java.awt.Color(178, 59, 59));
+        logout_button_seller.setForeground(new java.awt.Color(255, 255, 255));
         logout_button_seller.setText("Logout");
         logout_button_seller.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1880,13 +1885,15 @@ public class Driver extends javax.swing.JFrame {
                     .addComponent(jLabel40))
                 .addGap(18, 18, 18)
                 .addGroup(addproduct_pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(add_button)
                     .addGroup(addproduct_pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(product_name_addpage)
                         .addComponent(seller_name_addpage)
                         .addComponent(price_addpage)
                         .addComponent(type_addpage, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(addproduct_pageLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(add_button, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
         addproduct_pageLayout.setVerticalGroup(
@@ -2817,11 +2824,9 @@ public class Driver extends javax.swing.JFrame {
                     register_page.setLocationRelativeTo(null);
                     register_page.setVisible(true);
                 } else {
-                    MessageDigest md = MessageDigest.getInstance("SHA-256");
-                    md.update(new String(inputPass).getBytes("UTF-8"));
-                    byte[] hash = md.digest();
+                    String hashedPass = BCrypt.hashpw(new String(inputPass), BCrypt.gensalt());
                     Customer temp = new Customer(name.getText(), username.getText(),
-                            email.getText(), new String(bytesToHex(hash)), address.getText());
+                            email.getText(), hashedPass, address.getText());
                     temp.info();
                     temp.insert_customer();
                     JOptionPane.showMessageDialog(null, "Register success!");
@@ -2836,11 +2841,7 @@ public class Driver extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
-            }   
+            }
         } else {
             try {
                 String emailRegex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
@@ -2858,11 +2859,9 @@ public class Driver extends javax.swing.JFrame {
                     register_page.setLocationRelativeTo(null);
                     register_page.setVisible(true);
                 } else {
-                    MessageDigest md = MessageDigest.getInstance("SHA-256");
-                    md.update(new String(inputPass).getBytes("UTF-8"));
-                    byte[] hash = md.digest();
+                    String hashedPass = BCrypt.hashpw(new String(inputPass), BCrypt.gensalt());
                     Seller temp = new Seller(name.getText(), username.getText(),
-                            email.getText(), new String(bytesToHex(hash)), address.getText());
+                            email.getText(), hashedPass, address.getText());
                     temp.info();
                     temp.insert_seller();
                     JOptionPane.showMessageDialog(null, "Register success!");
@@ -2877,10 +2876,6 @@ public class Driver extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -3007,36 +3002,56 @@ public class Driver extends javax.swing.JFrame {
     }//GEN-LAST:event_backtocategory_electronic_seller_buttonActionPerformed
 
     private void add_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_buttonActionPerformed
-        if (category_add.equals("Fashion")) {    
-            Fashion p = new Fashion(seller_name_addpage.getText(), 
-                    product_name_addpage.getText(), 
-                    Integer.parseInt(price_addpage.getText()), desc_addpage.getText(), 
-                    type_addpage.getText());
-            addProduct_button_handling("Fashion", p);
+        if (category_add.equals("Fashion")) {
+            if (product_name_addpage.getText().isEmpty() || seller_name_addpage.getText().isEmpty() || price_addpage.getText().isEmpty() || type_addpage.getText().isEmpty() || desc_addpage.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null,  "Please fill empty textfield!");
+            } else {
+                Fashion p = new Fashion(seller_name_addpage.getText(), 
+                        product_name_addpage.getText(), 
+                        Integer.parseInt(price_addpage.getText()), desc_addpage.getText(), 
+                        type_addpage.getText());
+                addProduct_button_handling("Fashion", p);
+            }
         } else if (category_add.equals("Electronic")) {
-            Electronic elec = new Electronic(seller_name_addpage.getText(), 
-                    product_name_addpage.getText(), 
-                    Integer.parseInt(price_addpage.getText()), desc_addpage.getText(), 
-                    type_addpage.getText());
-            addProduct_button_handling("Electronic", elec);
+            if (product_name_addpage.getText().isEmpty() || seller_name_addpage.getText().isEmpty() || price_addpage.getText().isEmpty() || type_addpage.getText().isEmpty() || desc_addpage.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null,  "Please fill empty textfield!");
+            } else {
+                Electronic elec = new Electronic(seller_name_addpage.getText(), 
+                        product_name_addpage.getText(), 
+                        Integer.parseInt(price_addpage.getText()), desc_addpage.getText(), 
+                        type_addpage.getText());
+                addProduct_button_handling("Electronic", elec);
+            }
         } else if (category_add.equals("Kitchen Set")) {
-            KitchenSet ks = new KitchenSet(seller_name_addpage.getText(), 
-                    product_name_addpage.getText(), 
-                    Integer.parseInt(price_addpage.getText()), desc_addpage.getText(), 
-                    type_addpage.getText());
-            addProduct_button_handling("Kitchen Set", ks);
+            if (product_name_addpage.getText().isEmpty() || seller_name_addpage.getText().isEmpty() || price_addpage.getText().isEmpty() || type_addpage.getText().isEmpty() || desc_addpage.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null,  "Please fill empty textfield!");
+            } else {
+                KitchenSet ks = new KitchenSet(seller_name_addpage.getText(), 
+                        product_name_addpage.getText(), 
+                        Integer.parseInt(price_addpage.getText()), desc_addpage.getText(), 
+                        type_addpage.getText());
+                addProduct_button_handling("Kitchen Set", ks);
+            }
         } else if (category_add.equals("Game Voucher")) {
-            GameVoucher gv = new GameVoucher(seller_name_addpage.getText(), 
-                    product_name_addpage.getText(), 
-                    Integer.parseInt(price_addpage.getText()), desc_addpage.getText(), 
-                    type_addpage.getText());
-            addProduct_button_handling("Game Voucher", gv);
+            if (product_name_addpage.getText().isEmpty() || seller_name_addpage.getText().isEmpty() || price_addpage.getText().isEmpty() || type_addpage.getText().isEmpty() || desc_addpage.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null,  "Please fill empty textfield!");
+            } else {
+                GameVoucher gv = new GameVoucher(seller_name_addpage.getText(), 
+                        product_name_addpage.getText(), 
+                        Integer.parseInt(price_addpage.getText()), desc_addpage.getText(), 
+                        type_addpage.getText());
+                addProduct_button_handling("Game Voucher", gv);
+            }
         } else if (category_add.equals("PC Gaming Accessories")) {
-            PCGamingAccessories pcga = new PCGamingAccessories(seller_name_addpage.getText(), 
-                    product_name_addpage.getText(), 
-                    Integer.parseInt(price_addpage.getText()), desc_addpage.getText(), 
-                    type_addpage.getText());
-            addProduct_button_handling("PC Gaming Accessories", pcga);
+            if (product_name_addpage.getText().isEmpty() || seller_name_addpage.getText().isEmpty() || price_addpage.getText().isEmpty() || type_addpage.getText().isEmpty() || desc_addpage.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null,  "Please fill empty textfield!");
+            } else {
+                PCGamingAccessories pcga = new PCGamingAccessories(seller_name_addpage.getText(), 
+                        product_name_addpage.getText(), 
+                        Integer.parseInt(price_addpage.getText()), desc_addpage.getText(), 
+                        type_addpage.getText());
+                addProduct_button_handling("PC Gaming Accessories", pcga);
+            }
         }
     }//GEN-LAST:event_add_buttonActionPerformed
 
@@ -3154,6 +3169,7 @@ public class Driver extends javax.swing.JFrame {
 
     private void cart_detail_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cart_detail_buttonActionPerformed
         cart_page.setVisible(false);
+        detail_page.setLocation(730, 330);
         detail_page.setVisible(true);
         detail_page.setSize(500,500);
         detail_product_name.setEditable(false);
@@ -3363,28 +3379,32 @@ public class Driver extends javax.swing.JFrame {
     }//GEN-LAST:event_register_button_sellerActionPerformed
 
     private void login_button_sellerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_button_sellerActionPerformed
-        try {
-            // TODO add your handling code here:
+         try {
             Database db = new Database();
             char[] password = seller_password.getPassword();
             String password_seller = new String(password);
             String email_seller = seller_email.getText();
-            String sql = String.format("SELECT * FROM seller WHERE email = '%s' AND password = '%s'",
-                seller_email.getText(), password_seller);
+            String sql = String.format("SELECT * FROM seller WHERE email = '%s'", seller_email.getText());
             ResultSet rs = db.getData(sql);
             if (!rs.next()) {
                 System.out.println("salah mint");
                 JOptionPane.showMessageDialog(null, "Email or Password incorrect");
             } else {
-                System.out.println("bener mint");
-                Seller seller = new Seller(rs.getString("name"), rs.getString("username"), email_seller, password_seller, rs.getString("address"));
-                username_seller = rs.getString("username");
-                session.login(seller);
-                JOptionPane.showMessageDialog(null, "Login Successful");
-                seller_login.setVisible(false);
-                category_page_seller.setLocation(730, 330);
-                category_page_seller.setVisible(true);
-                category_page_seller.setSize(452, 450);
+                // Compare the provided password to the stored hashed password
+                if(BCrypt.checkpw(password_seller, rs.getString("password"))) {
+                    System.out.println("bener mint");
+                    Seller seller = new Seller(rs.getString("name"), rs.getString("username"), email_seller, password_seller, rs.getString("address"));
+                    username_seller = rs.getString("username");
+                    session.login(seller);
+                    JOptionPane.showMessageDialog(null, "Login Successful");
+                    seller_login.setVisible(false);
+                    category_page_seller.setLocation(730, 330);
+                    category_page_seller.setVisible(true);
+                    category_page_seller.setSize(452, 450);
+                } else {
+                    System.out.println("salah mint");
+                    JOptionPane.showMessageDialog(null, "Email or Password incorrect");
+                }
             }
             seller_email.setText("");
             seller_password.setText("");
@@ -3396,26 +3416,30 @@ public class Driver extends javax.swing.JFrame {
     private void login_button_customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_button_customerActionPerformed
         // TODO add your handling code here:
         try {
-            // TODO add your handling code here:
             Database db = new Database();
             char[] password = customer_password.getPassword();
             String password_customer = new String(password);
             String email_customer = customer_email.getText();
-            String sql = String.format("SELECT * FROM customer WHERE email = '%s' AND password = '%s'",
-                customer_email.getText(), password_customer);
+            String sql = String.format("SELECT * FROM customer WHERE email = '%s'", customer_email.getText());
             ResultSet rs = db.getData(sql);
             if (!rs.next()) {
                 System.out.println("salah mint");
                 JOptionPane.showMessageDialog(null, "Email or Password incorrect");
             } else {
-                System.out.println("bener mint");
-                Customer customer = new Customer(rs.getString("name"), rs.getString("username"), email_customer, password_customer, rs.getString("address"));
-                session.login(customer);
-                JOptionPane.showMessageDialog(null, "Login Successful");
-                customer_login.setVisible(false);
-                category_page_customer.setLocation(730, 330);
-                category_page_customer.setVisible(true);
-                category_page_customer.setSize(452, 450);
+                // Compare the provided password to the stored hashed password
+                if(BCrypt.checkpw(password_customer, rs.getString("password"))) {
+                    System.out.println("bener mint");
+                    Customer customer = new Customer(rs.getString("name"), rs.getString("username"), email_customer, password_customer, rs.getString("address"));
+                    session.login(customer);
+                    JOptionPane.showMessageDialog(null, "Login Successful");
+                    customer_login.setVisible(false);
+                    category_page_customer.setLocation(730, 330);
+                    category_page_customer.setVisible(true);
+                    category_page_customer.setSize(452, 450);
+                } else {
+                    System.out.println("salah mint");
+                    JOptionPane.showMessageDialog(null, "Email or Password incorrect");
+                }
             }
             customer_email.setText("");
             customer_password.setText("");
